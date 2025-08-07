@@ -1,8 +1,8 @@
 import '../repositories/download_repository.dart';
 
-class ResumeDownload {
+class ResumeDownloadUseCase {
   final DownloadRepository repository;
-  ResumeDownload(this.repository);
+  ResumeDownloadUseCase(this.repository);
   Future<void> call(String taskId) {
     return repository.resumeDownload(taskId);
   }

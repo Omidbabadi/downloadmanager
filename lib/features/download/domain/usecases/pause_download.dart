@@ -1,8 +1,8 @@
 import '../repositories/download_repository.dart';
 
-class PauseDownload {
+class PauseDownloadUseCase {
   final DownloadRepository repository;
-  PauseDownload(this.repository);
+  PauseDownloadUseCase(this.repository);
   Future<void> call(String taskId){
     return repository.pauseDownload(taskId);
   

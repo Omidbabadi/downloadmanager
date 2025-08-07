@@ -1,8 +1,8 @@
 import '../repositories/download_repository.dart';
 
-class CancelDownload {
+class CancelDownloadUseCase {
   final DownloadRepository repository;
-  CancelDownload(this.repository);
+  CancelDownloadUseCase(this.repository);
 
   Future<void> call(String taskId) {
     return repository.cancelDownload(taskId);

@@ -2,12 +2,14 @@ import 'package:dio/dio.dart';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mime/mime.dart';
+import 'package:myapp/features/download/presentation/pages/download_page.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 void main() {
-  runApp(const MainScreen());
+  runApp(ProviderScope(child: const MainScreen()));
 }
 
 class MainScreen extends StatelessWidget {
@@ -21,7 +23,7 @@ class MainScreen extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const MyHomePage(),
+      home: const DownloadPage(),
     );
   }
 }

@@ -1,9 +1,10 @@
+
 import '../repositories/download_repository.dart';
 import '../entities/download_task.dart';
 
-class GetAllDownloads {
+class GetAllDownloadsUseCase {
   final DownloadRepository repository;
-  GetAllDownloads(this.repository);
+  GetAllDownloadsUseCase(this.repository);
 
   Future<List<DownloadTask>> call() {
     return repository.getAllDownloads();

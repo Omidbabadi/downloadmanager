@@ -5,20 +5,27 @@ import 'package:mime/mime.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:uuid/uuid.dart';
 import 'package:flutter/foundation.dart';
-
+import 'package:permission_handler/permission_handler.dart';
 import '../../domain/entities/download_task.dart';
 
 class DownloadRemoteDatasource {
   final Dio dio;
   DownloadRemoteDatasource({Dio? dio}) : dio = dio ?? Dio();
 
-  
   Stream<DownloadTask> startDownload(String url, String fileName) async* {
+    final status = await Permission.storage.request();
+    if (!status.isGranted) {
+      debugPrint('Permission Denied');
+      return;
+    }
+    debugPrint('start download started @ download remote datasource');
     final flutterMediaStorePlugin = FlutterMediaStore();
     final id = const Uuid().v4();
+    debugPrint('download id: $id');
     int downloadedBytes = 0;
     final tempDir = await getTemporaryDirectory();
     final file = File('${tempDir.path}/$fileName');
+    debugPrint("Path: $tempDir/$fileName");
 
     yield DownloadTask(
       id: id,
@@ -64,6 +71,7 @@ class DownloadRemoteDatasource {
           status: DownloadStatus.completed,
         );
       } else {
+        debugPrint('Download Failed');
         throw Exception('Download Failed');
       }
     } catch (e) {
