@@ -3,12 +3,19 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:mime/mime.dart';
 import 'package:myapp/features/download/presentation/pages/download_page.dart';
+import 'package:myapp/models/download_model.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
+  Hive.registerAdapter(DownloadTaskModelAdapter());
+  await Hive.openBox<DownloadTaskModel>('downloads');
   runApp(ProviderScope(child: const MainScreen()));
 }
 
